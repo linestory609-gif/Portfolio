@@ -5,13 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { navLinks } from "../utils/constants";
 
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#services", label: "Services" },
-  { href: "#pricing", label: "Pricing" },
-  { href: "#blog", label: "Blog" },
-];
+// const navLinks = [
+//   { href: "#about", label: "About" },
+//   { href: "#services", label: "Services" },
+//   { href: "#pricing", label: "Pricing" },
+//   { href: "#blog", label: "Blog" },
+// ];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -30,22 +31,25 @@ export default function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "glass shadow-sm" : "bg-transparent"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50
+transition-all duration-500 ease-out
+${scrolled ? "" : "bg-transparent"}
+`}
     >
+      {scrolled && (
+        <div
+          className="absolute inset-0 -z-10 backdrop-blur-lg"
+          style={{
+            WebkitMaskImage:
+              "linear-gradient(to bottom, black 0%, black 50%, transparent 100%)",
+            maskImage:
+              "linear-gradient(to bottom, black 0%, black 60%, transparent 100%)",
+          }}
+        ></div>
+      )}
       <div className="max-w-[1320px] mx-auto px-6 h-[72px] flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          {/* <div className="w-9 h-9 bg-dark rounded-lg flex items-center justify-center">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                            <rect x="3" y="3" width="7" height="7" rx="1.5" fill="white" />
-                            <rect x="14" y="3" width="7" height="7" rx="1.5" fill="white" />
-                            <rect x="3" y="14" width="7" height="7" rx="1.5" fill="white" />
-                            <rect x="14" y="14" width="7" height="7" rx="1.5" fill="white" />
-                        </svg>
-                    </div> */}
-
           <Image
             src="/logo.png"
             alt="Editr Logo"
@@ -73,7 +77,7 @@ export default function Header() {
         <div className="hidden md:flex items-center">
           <Link
             href="#contact"
-            className="px-5 py-2.5 bg-white text-dark text-sm font-medium rounded-xl border border-border hover:shadow-md transition-all duration-200"
+            className="px-5 py-2.5 bg-white text-dark text-sm font-medium rounded-xl hover:shadow-md transition-all duration-200"
           >
             Book a call
           </Link>
@@ -95,7 +99,7 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass border-t border-border"
+            className="md:hidden backdrop-blur-2xl bg-white/15"
           >
             <div className="px-6 py-4 flex flex-col gap-4">
               {navLinks.map((link) => (

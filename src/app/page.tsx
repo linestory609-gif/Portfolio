@@ -20,9 +20,9 @@ export default function Home() {
         <ClientBase />
         <Results />
         <Process />
-        <Pricing />
+        {/* <Pricing /> */}
         <Team />
-        <Blog />
+        {/* <Blog /> */}
         <Testimonials />
       </main>
       <Footer />
